@@ -56,6 +56,6 @@ func Parse(r io.Reader) (*html.Node, error) {
 func normalizeTextEncoding(r io.Reader) io.Reader {
 	fnSoftHyphen := func(r rune) bool { return r == '\u00AD' }
 	softHyphenSet := runes.Predicate(fnSoftHyphen)
-	transformer := transform.Chain(norm.NFD, runes.Remove(softHyphenSet), norm.NFC)
+	transformer := transform.Chain(runes.Remove(softHyphenSet), norm.NFC)
 	return transform.NewReader(r, transformer)
 }
